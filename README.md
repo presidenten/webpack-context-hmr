@@ -30,7 +30,7 @@ In this example the importer will look in `<project-path>/src` using recursive s
 Then in `main.js` (example with Vuex):
 ```javascript
 // Get new importer instance
-const importer = require('webpack-context-vuex-hmr').getNewInstance();
+const importer = require('webpack-context-hmr').getNewInstance();
 
 // Import all modules and get `module.default` from each module
 // Edit moduleKey value as necessary, this example imports from modules using:
