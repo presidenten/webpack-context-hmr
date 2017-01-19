@@ -11,6 +11,9 @@ This package uses Webpack's `require.context` to dynamically load all modules ma
 
 For vuex, there is a more specific version that makes things even easier: [Webpack-context-vuex-hmr](https://github.com/presidenten/webpack-context-vuex-hmr).
 
+### Avoiding a gotcha: 
+Organizing your Vuex modules by exposing an api object containing all getters, actions and mutation strings? Importing this api into a non `.vue` file will break the HMR for that module. To fix this, check out the [hmr-auto-accept-loader](https://github.com/presidenten/hmr-auto-accept-loader)
+
 ## Usage
 Require.context cannot handle runtime input. It can however be configured by using the ContextReplacementPlugin.
 Configure the importer by adding the plugin to the webpack configuration:
