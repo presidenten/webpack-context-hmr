@@ -1,23 +1,21 @@
-var Importer = function () {
-  var modules = {};
-  var getModulesContext = function () { return require.context('.', false, /override-me-in-webpack-config$/); };
-  var getFileName = function (string) {
-    return string.match(/[^\\|/]*(?=[.][a-zA-Z]+$)/)[0];
-  };
-  var contextId;
-  var moduleKey;
+const Importer = function () {
+  const modules = {};
+  const getModulesContext = () => require.context('.', false, /override-me-in-webpack-config$/);
+  const getFileName = string => string.match(/[^\\|/]*(?=[.][a-zA-Z]+$)/)[0];
+  let contextId;
+  let moduleKey;
 
   /**
    * Returns an object with loaded modules
    *
    * @param {Object} config - Set `config.moduleKey` if importing specfic key from modules.
    */
-  this.getModules = function (config) {
+  this.getModules = (config) => {
     moduleKey = config.moduleKey;
-    var context = getModulesContext();
+    const context = getModulesContext();
     contextId = context.id;
-    context.keys().forEach(function (key) {
-      var fileName = getFileName(key);
+    context.keys().forEach((key) => {
+      const fileName = getFileName(key);
       modules[fileName] = moduleKey ? context(key)[moduleKey] : context(key);
     });
 
@@ -33,25 +31,21 @@ var Importer = function () {
    *
    * @param {callback} hmrHandler - The hmrHandler is called with the newModules
    */
-  this.setupHMR = function (hmrHandler) {
+  this.setupHMR = (hmrHandler) => {
     if (module.hot) {
       // Accept last context as input
-      module.hot.accept(contextId, function () {
+      module.hot.accept(contextId, () => {
         // Require the updated modules
-        var reloadedContext = getModulesContext();
-        var changedModules = reloadedContext.keys()
-          .map(function(key) {
-            return {
-              name: getFileName(key),
-              object: moduleKey ? reloadedContext(key)[moduleKey] : reloadedContext(key),
-            };
-          })
-          .filter(function(reloadedModule) {
-            return modules[reloadedModule.name] !== reloadedModule.object;
-          });
+        const reloadedContext = getModulesContext();
+        const changedModules = reloadedContext.keys()
+          .map(key => ({
+            name: getFileName(key),
+            object: moduleKey ? reloadedContext(key)[moduleKey] : reloadedContext(key),
+          }))
+          .filter(reloadedModule => modules[reloadedModule.name] !== reloadedModule.object);
 
         // Update changed modules
-        changedModules.forEach(function (module) {
+        changedModules.forEach((module) => {
           modules[module.name] = module.object;
           console.info('HMR - [' + module.name + '] is updated');
         });

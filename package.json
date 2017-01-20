@@ -1,9 +1,10 @@
 {
   "name": "webpack-context-hmr",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Easy dynamic imports of js modules with HMR",
-  "main": "importer.js",
+  "main": "importer.es5.js",
   "scripts": {
+    "build": "node_modules/babel-cli/bin/babel importer.js >> importer.es5.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/presidenten/webpack-context-hmr/issues"
   },
-  "homepage": "https://github.com/presidenten/webpack-context-hmr#readme"
+  "homepage": "https://github.com/presidenten/webpack-context-hmr#readme",
+  "devDependencies": {
+    "babel-cli": "^6.22.2"
+  }
 }
