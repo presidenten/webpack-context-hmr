@@ -12,7 +12,8 @@ This package uses Webpack's `require.context` to dynamically load all modules ma
 For vuex, there is a more specific version that makes things even easier: [Webpack-context-vuex-hmr](https://github.com/presidenten/webpack-context-vuex-hmr).
 
 ### Submodules:
-When working with submodules/substores, this loader in needed: [hmr-auto-accept-loader](https://github.com/presidenten/hmr-auto-accept-loader)
+When working with submodules/substores and `Webpack 1`, this loader in needed: [hmr-auto-accept-loader](https://github.com/presidenten/hmr-auto-accept-loader)
+This loader is _not_ needed with `Webpack 2`.
 
 ## Usage
 `Require.context` cannot handle runtime input. It can however be configured by using the `ContextReplacementPlugin`.
