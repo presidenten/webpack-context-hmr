@@ -42,6 +42,7 @@ module.exports.getNewInstance = () => {
       if (module.hot) {
         // Accept last context as input
         module.hot.accept(contextId, () => {
+          let updatedModules = {};
           // Require the updated modules
           const reloadedContext = getModulesContext();
           let allModules = reloadedContext.keys()
@@ -57,11 +58,12 @@ module.exports.getNewInstance = () => {
           // Update changed modules
           newModules.forEach((module) => {
             modules[module.name] = module.object;
+            updatedModules[module.name] = module.object;
             console.info('[HMR] - Modules are replaced');
           });
 
           // Handle the new modules
-          hmrHandler(modules);
+          hmrHandler(updatedModules);
         });
       }
     };

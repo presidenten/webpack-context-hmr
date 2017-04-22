@@ -1,6 +1,6 @@
 {
   "name": "webpack-context-hmr",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Easy dynamic imports of js modules with HMR",
   "main": "importer.es5.js",
   "scripts": {

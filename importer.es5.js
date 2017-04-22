@@ -29,6 +29,8 @@ module.exports.getNewInstance = function () {
     this.setupHMR = function (hmrHandler) {
       if (module.hot) {
         module.hot.accept(contextId, function () {
+          var updatedModules = {};
+
           var reloadedContext = getModulesContext();
           var allModules = reloadedContext.keys().map(function (key) {
             return {
@@ -45,10 +47,11 @@ module.exports.getNewInstance = function () {
 
           newModules.forEach(function (module) {
             modules[module.name] = module.object;
+            updatedModules[module.name] = module.object;
             console.info('[HMR] - Modules are replaced');
           });
 
-          hmrHandler(modules);
+          hmrHandler(updatedModules);
         });
       }
     };
